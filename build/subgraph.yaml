@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Factory
@@ -17,17 +17,17 @@ dataSources:
         - PairCreated
       abis:
         - name: Factory
-          file: ./abis/factory.json
+          file: Factory/abis/factory.json
         - name: ERC20
-          file: ./abis/ERC20.json
+          file: Factory/abis/ERC20.json
         - name: ERC20SymbolBytes
-          file: ./abis/ERC20SymbolBytes.json
+          file: Factory/abis/ERC20SymbolBytes.json
         - name: ERC20NameBytes
-          file: ./abis/ERC20NameBytes.json
+          file: Factory/abis/ERC20NameBytes.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,bool,address,uint256)
           handler: handlePairCreated
-      file: ./src/mapping.ts
+      file: Factory/Factory.wasm
 templates:
   - kind: ethereum/contract
     name: Pair
@@ -38,15 +38,15 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
-      file: ./src/mapping.ts
+      file: Factory/Factory.wasm
       entities:
         - Pair
         - Token
       abis:
         - name: Pair
-          file: ./abis/pair.json
+          file: Pair/abis/pair.json
         - name: Factory
-          file: ./abis/factory.json
+          file: Pair/abis/factory.json
       eventHandlers:
         - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
           handler: handleSwap
