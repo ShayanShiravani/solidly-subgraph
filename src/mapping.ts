@@ -1,11 +1,10 @@
 import { BigInt, log } from "@graphprotocol/graph-ts"
 import { PairCreated } from "../generated/Factory/Factory"
 import { Pair, SolidlyFactory, Swap as SwapEvent, Token, Transaction } from "../generated/schema"
-import { ADDRESS_ZERO, FACTORY_ADDRESS, ONE_BD, ZERO_BD } from "./constants"
+import { ADDRESS_ZERO, FACTORY_ADDRESS, ZERO_BD } from "./constants"
 import { convertTokenToDecimal, fetchTokenDecimals, fetchTokenName, fetchTokenSymbol, fetchTokenTotalSupply } from "./helpers"
 import { Pair as PairTemplate } from '../generated/templates'
 import { Swap, Sync } from "../generated/templates/Pair/Pair"
-import { fetchTokenPriceInUSD } from "./pricing"
 
 export function handlePairCreated(event: PairCreated): void {
   // load factory (create if first exchange)
@@ -173,29 +172,6 @@ export function handleSwap(event: Swap): void {
     swap.reserve1 = pair.reserve1
     swap.token0Price = pair.token0Price
     swap.token1Price = pair.token1Price
-    // if(token0)
-    // {
-    //   swap.token0PriceUSD = fetchTokenPriceInUSD(token0)
-    // }else
-    // {
-    //   log.error("token0 is missed in swap {}", [swap.id])
-    // }
-    // if(token1)
-    // {
-    //   swap.token1PriceUSD = fetchTokenPriceInUSD(token1)
-    // }else
-    // {
-    //   log.error("token1 is missed in swap {}", [swap.id])
-    // }
-    // if(pair)
-    // {
-    //   let reserves = fetchPairReserves(Address.fromString(pair.id))
-    //   if(reserves)
-    //   {
-    //     swap.reserve0 = reserves[0]
-    //     swap.reserve1 = reserves[1]
-    //   }
-    // }
     swap.save()
   }
 }

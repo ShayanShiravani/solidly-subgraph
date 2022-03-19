@@ -54,7 +54,7 @@ type Transaction @entity {
 }
 
 type Swap @entity {
-  # transaction hash + "-" + index in swaps Transaction array
+  # transaction hash + "-" + log index
   id: ID!
   transaction: Transaction!
   timestamp: BigInt! # need this to pull recent txns for specific token or pair
@@ -73,6 +73,4 @@ type Swap @entity {
   reserve1: BigDecimal!
   token0Price: BigDecimal!
   token1Price: BigDecimal!
-  # token0PriceUSD: BigDecimal!
-  # token1PriceUSD: BigDecimal!
 }
