@@ -7,6 +7,7 @@ import { Pair as PairTemplate } from '../generated/templates'
 import { Swap, Sync } from "../generated/templates/Pair/Pair"
 
 export function handlePairCreated(event: PairCreated): void {
+  log.info("PairCreated event", [])
   // load factory (create if first exchange)
   let factory = SolidlyFactory.load(FACTORY_ADDRESS)
   if (factory === null) {
@@ -91,6 +92,7 @@ export function handlePairCreated(event: PairCreated): void {
 }
 
 export function handleSync(event: Sync): void {
+  log.info("Sync event", [])
   let pair = Pair.load(event.address.toHex())
   if(pair)
   {
@@ -112,6 +114,7 @@ export function handleSync(event: Sync): void {
 }
 
 export function handleSwap(event: Swap): void {
+  log.info("Swap event", [])
   let pair = Pair.load(event.address.toHexString())
   let amount0In = ZERO_BD
   var amount1In = ZERO_BD
